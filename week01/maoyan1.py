@@ -65,5 +65,6 @@ for page in urls:
     sleep(5)
 
 movie1 = pd.DataFrame(data=mydict)
+# 序号设置从1开始
 movie1.index += 1
 movie1.to_csv('movie1.csv', encoding='gbk', index=True, header=True)
