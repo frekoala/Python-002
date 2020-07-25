@@ -10,4 +10,11 @@ from itemadapter import ItemAdapter
 
 class SpidersPipeline:
     def process_item(self, item, spider):
+        movie_name = item["movie_name"]
+        movie_type = item["movie_type"]
+        releasetime = item["releasetime"]
+        link = item["link"]
+        output = f'{movie_name},{movie_type},{releasetime},{link}\r\n'
+        with open('./movie2.txt', 'a+', encoding='gbk') as article:
+            article.write(output)
         return item

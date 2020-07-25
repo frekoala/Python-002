@@ -1,0 +1,10 @@
+战狼2,动作/战争,上映时间：2017-07-27,https://maoyan.com/films/344264
+寻梦环游记,动画/冒险/家庭,上映时间：2017-11-24,https://maoyan.com/films/342068
+大话西游之月光宝盒,喜剧/爱情/奇幻/古装,上映时间：2014-10-24,https://maoyan.com/films/6823
+哪吒之魔童降世,动画/喜剧/奇幻,上映时间：2019-07-26,https://maoyan.com/films/1211270
+误杀,剧情/犯罪,上映时间：2019-12-13,https://maoyan.com/films/1218273
+疯狂动物城,动画/动作/冒险,上映时间：2016-03-04,https://maoyan.com/films/246286
+当幸福来敲门,剧情/家庭/传记,上映时间：2008-01-17,https://maoyan.com/films/899
+风声,惊悚/剧情/犯罪,上映时间：2009-09-29,https://maoyan.com/films/293
+夏洛特烦恼,喜剧/爱情,上映时间：2015-09-30,https://maoyan.com/films/246082
+白蛇：缘起,爱情/动画/奇幻,上映时间：2019-01-11,https://maoyan.com/films/1235560
