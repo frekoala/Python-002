@@ -1,6 +1,7 @@
 import scrapy
 from scrapy.selector import Selector
 from maoyan.items import MaoyanItem
+import re
 
 
 class MoviesSpider(scrapy.Spider):
@@ -25,7 +26,7 @@ class MoviesSpider(scrapy.Spider):
                 link = f'https://maoyan.com{link}'
                 release_time = movies[i].xpath('p[@class="releasetime"]/text()').get()
                 item['link'] = link
-                item['release_time'] = release_time
+                item['release_time'] = re.search(r'[0-9].*', release_time).group()
                 yield scrapy.Request(url=link, meta={'items': item}, callback=self.parse2)
         except IndexError as identifier:
             print(f'获取movie-item-info标签信息可能为空:{identifier}')
