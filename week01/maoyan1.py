@@ -13,7 +13,7 @@ def get_movies_info(myurl):
 
     header = {'user-agent': user_agent, 'cookie': cookie}
     response = requests.get(myurl, headers=header)
-    bs_info = bs(response.text, "html.parser")
+    bs_info = bs(response.text, 'html.parser')
 
     for tags in bs_info.find_all('div',
                                  attrs={'class': 'movie-brief-container'}):
