@@ -141,5 +141,7 @@ class RandomUserAgentMiddleware(UserAgentMiddleware):
         return cls(crawler)
 
     def process_request(self, request, spider):
+        ua = UserAgent(path='fake_useragent.json').random
         if self.user_agent:
-            request.headers.setdefault(b'User-Agent', self.user_agent)
+            request.headers.setdefault(b'User-Agent', ua)
+

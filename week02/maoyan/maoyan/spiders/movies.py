@@ -16,6 +16,8 @@ class MoviesSpider(scrapy.Spider):
         yield scrapy.Request(urls, callback=self.parse, dont_filter=False)
 
     def parse(self, response):
+        print('=====parse:%s' % response.request.headers["User-Agent"])
+        print('=====parse:%s' % response.request.meta)
         # print(response.url)
         movies = Selector(response=response).xpath('//div[@class="movie-item-info"]')
         try:
@@ -32,6 +34,8 @@ class MoviesSpider(scrapy.Spider):
             print(f'获取movie-item-info标签信息可能为空:{identifier}')
 
     def parse2(self, response):
+        print('=====parse2:%s' % response.request.headers["User-Agent"])
+        print('=====parse2:%s' % response.request.meta)
         # print(response.url)
         movie_info = Selector(response=response).xpath('//div[@class="movie-brief-container"]')
         movie_name = movie_info.xpath('./h1/text()').get()

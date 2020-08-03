@@ -10,9 +10,9 @@ class ConnDB(object):
         self.db = db_info['db']
 
     def insert(self, table, value_dict):
-        conn = pymysql.connect(host=self.host, port=self.port, user=self.user, password=self.password, db=self.db)
-        cur = conn.cursor()
         try:
+            conn = pymysql.connect(host=self.host, port=self.port, user=self.user, password=self.password, db=self.db)
+            cur = conn.cursor()
             sql = 'insert into {} ({}) values ({})'.format('movies_info', ','.join(value_dict.keys()), ','.join(list(map(lambda x: "'" + x + "'", value_dict.values()))))
             print(sql)
             cur.execute(sql)

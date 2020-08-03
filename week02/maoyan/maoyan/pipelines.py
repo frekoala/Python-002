@@ -12,10 +12,10 @@ import maoyan.config
 
 class MaoyanPipeline:
     def process_item(self, item, spider):
-        movie_name = item["movie_name"]
-        movie_type = item["movie_type"]
-        release_time = item["release_time"]
-        link = item["link"]
+        # movie_name = item["movie_name"]
+        # movie_type = item["movie_type"]
+        # release_time = item["release_time"]
+        # link = item["link"]
         # output = f'{movie_name},{movie_type},{release_time},{link}\r\n'
         # with open('./movie2.txt', 'a+', encoding='gbk') as article:
         #     article.write(output)
