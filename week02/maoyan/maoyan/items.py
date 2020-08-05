@@ -15,3 +15,4 @@ class MaoyanItem(scrapy.Item):
     movie_type = scrapy.Field()
     release_time = scrapy.Field()
     link = scrapy.Field()
+    update_time = scrapy.Field()

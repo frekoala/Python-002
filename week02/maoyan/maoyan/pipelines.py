@@ -11,6 +11,22 @@ import maoyan.config
 
 
 class MaoyanPipeline:
+    def __init__(self, db_info):
+        self.db_info = db_info
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            db_info=maoyan.config.db_info
+        )
+
+    def open_spider(self, spider):
+        self.conn = ConnDB(self.db_info)
+        self.cur = self.conn.getcur()
+
+    def close_spider(self, spider):
+        self.conn.close()
+
     def process_item(self, item, spider):
         # movie_name = item["movie_name"]
         # movie_type = item["movie_type"]
@@ -19,7 +35,5 @@ class MaoyanPipeline:
         # output = f'{movie_name},{movie_type},{release_time},{link}\r\n'
         # with open('./movie2.txt', 'a+', encoding='gbk') as article:
         #     article.write(output)
-
-        conn = ConnDB(maoyan.config.db_info)
-        conn.insert('movies_info', item)
+        self.conn.insert('movies_info', item)
         return item

@@ -2,6 +2,7 @@ import scrapy
 from scrapy.selector import Selector
 from maoyan.items import MaoyanItem
 import re
+import time
 
 
 class MoviesSpider(scrapy.Spider):
@@ -37,12 +38,16 @@ class MoviesSpider(scrapy.Spider):
         print('=====parse2:%s' % response.request.headers["User-Agent"])
         print('=====parse2:%s' % response.request.meta)
         # print(response.url)
-        movie_info = Selector(response=response).xpath('//div[@class="movie-brief-container"]')
-        movie_name = movie_info.xpath('./h1/text()').get()
-        movie_type = '/'.join([text.strip() for text in movie_info.xpath('./ul/li/a/text()').getall()])
+        try:
+            movie_info = Selector(response=response).xpath('//div[@class="movie-brief-container"]')
+            movie_name = movie_info.xpath('./h1/text()').get()
+            movie_type = '/'.join([text.strip() for text in movie_info.xpath('./ul/li/a/text()').getall()])
 
-        item = response.meta['items']
-        item['movie_name'] = movie_name
-        item['movie_type'] = movie_type
-        # print(item)
-        yield item
+            item = response.meta['items']
+            item['movie_name'] = movie_name
+            item['movie_type'] = movie_type
+            item['update_time'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+            # print(item)
+            yield item
+        except IndexError as identifier:
+            print(f'获取movie-brief-container标签信息可能为空:{identifier}')
