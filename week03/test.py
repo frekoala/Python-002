@@ -3,12 +3,13 @@ import ping3
 import re
 from IPy import IP
 from concurrent.futures import ThreadPoolExecutor
-from queue import Queue
-from time import time
+# from queue import Queue
+import time
 import json
-import threading
+# import threading
 from multiprocessing.dummy import Pool as ThreadPool
 import socket
+import struct
 
 def isIP(str):
     p = re.compile('^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$')
@@ -50,7 +51,11 @@ def get_ping_list(ip):
     return ip_list
 
 
-    
+def findIPs(start, end):
+    ipstruct = struct.Struct('>I')
+    start, = ipstruct.unpack(socket.inet_aton(start))
+    end, = ipstruct.unpack(socket.inet_aton(end))
+    return [socket.inet_ntoa(ipstruct.pack(i)) for i in range(start, end + 1)]
 
 
 def tcp(ip, file = None):
@@ -69,8 +74,6 @@ def tcp(ip, file = None):
             result_dict['result'] = f'{ip}:{port} is close'
         if file:
             json.dump(result_dict,fp=file,ensure_ascii=False) 
-        
-
 
 def ping_or_tcp(func, ip_addr, num = 1,*args, **kwargs):
     # mult_tpye = kwargs.get("mult_tpye")
@@ -106,13 +109,16 @@ def ping_or_tcp(func, ip_addr, num = 1,*args, **kwargs):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-n", dest='num', default=1, help="Concurrent quantity", type=int)
-    parser.add_argument("-f", dest='func', choices=['ping', 'tcp'], help="Ping and telnet functions")
+    parser.add_argument("-f", dest='func', choices=['ping', 'tcp'], help='Specify the required function, "ping" means ip address scanning, ''"tcp" means port scanning')
     parser.add_argument("-ip", dest='ip_addr', help="IP address or Continuous IP address")
     parser.add_argument("-w", dest='file', help="save the result in a file")
     # parser.add_argument("-m", dest='mult_tpye', choices=['proc', 'thread'], help='use the multiple process or multiple thread')
     args = parser.parse_args()
     # ping_or_telnet(num=args.num, func=args.func, ip_addr=args.ip_addr, file=args.file, mult_tpye=args.mult_tpye)
+    start_time = time.time()
     ping_or_tcp(num=args.num, func=args.func, ip_addr=args.ip_addr, file=args.file)
+    end_time = time.time()
+    print(f'耗时:{end_time - end_time}s')
 
 if __name__ == "__main__":
     main()
