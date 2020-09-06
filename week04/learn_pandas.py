@@ -7,9 +7,9 @@ from sqlalchemy import create_engine
 db_info = {
     'host': 'localhost',
     'port': 3306,
-    'user': '*****',
-    'password': '*****',
-    'db': '*******',
+    'user': 'root',
+    'password': '111111',
+    'db': 'test',
     'charset': 'utf8'
 }
 
@@ -21,13 +21,22 @@ data = pd.DataFrame({
     "age":np.random.randint(15,50,20)
     })
 
+# 多对一替换
+data.replace([24,25,26,27,28], np.NaN,inplace=True)
+# data.replace(regex=r'.*',value=111)
+data.loc[[2,5,6],['id']] = np.NaN
 
 table1 = pd.DataFrame({
     "id" : np.random.randint(1,20,20),
-    "order_id" : np.random.randint(100,500,20),
+    "order_id" : np.random.randint(100,130,20),
     "group":[group[x] for x in np.random.randint(0,len(group),20)] ,
     "age":np.random.randint(15,50,20)
 })
+
+# 多对一替换
+table1.replace([109,111,105], np.NaN,inplace=True)
+# data.replace(regex=r'.*',value=111)
+table1.loc[[3,15,9],['id']] = np.NaN
 
 table2 = pd.DataFrame({
     "id": np.random.randint(1,20,20),
@@ -35,6 +44,11 @@ table2 = pd.DataFrame({
     "group": [group[x] for x in np.random.randint(0,len(group),20)] ,
     "age": np.random.randint(15,50,20)
 })
+
+# 多对一替换
+table2.replace([i for i in range(200,300)], np.NaN,inplace=True)
+# data.replace(regex=r'.*',value=111)
+table2.loc[[3,15,9],['id']] = np.NaN
 
 #在数据库创建与pandas对应的表及数据
 engine = create_engine('mysql+pymysql://%(user)s:%(password)s@%(host)s:%(port)d/%(db)s?charset=%(charset)s'%db_info, encoding='utf-8')
@@ -82,7 +96,7 @@ def case2():
     sql = """SELECT * FROM data LIMIT 10"""
     query_from_mysql(sql,2)
     print('-'*10 + 'case2 query_from_pandas' + '-'*10)
-    print(data[0:9])
+    print(data[0:10])
 
 def case3():
     sql = """SELECT id FROM data"""
