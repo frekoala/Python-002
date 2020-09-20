@@ -21,7 +21,7 @@ class Animal(metaclass=ABCMeta):
 
 
 class Cat(Animal):
-    __sound = '喵喵'
+    _sound = '喵喵'
 
     def __init__(self, name, animal_type, animal_shape, animal_character):
         self.name = name
@@ -38,7 +38,7 @@ class Cat(Animal):
 
 
 class Dog(Animal):
-    __sound = '汪汪'
+    _sound = '汪汪'
 
     def __init__(self, name, animal_type, animal_shape, animal_character):
         self.name = name
@@ -81,5 +81,6 @@ if __name__ == '__main__':
     # 动物园是否有猫这种动物
     have_cat = hasattr(z, 'Cat')
     print(have_cat)
+    print(cat1._sound)
     #动物类不能实例化
-    a = Animal('食肉', '小', '温顺')
+    # a = Animal('食肉', '小', '温顺')
